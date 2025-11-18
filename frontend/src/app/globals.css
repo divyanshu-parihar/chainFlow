@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --background: 226 17% 8%;
+  --foreground: 220 33% 96%;
+  --muted: 226 12% 16%;
+  --muted-foreground: 220 19% 70%;
+  --accent: 203 89% 61%;
+  --accent-foreground: 217 28% 18%;
+  --ring: 203 89% 61%;
+  --radius: 1rem;
+}
+
+body {
+  background: radial-gradient(
+      circle at top right,
+      rgba(56, 189, 248, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(14, 116, 144, 0.18),
+      transparent 60%
+    ),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), system-ui, -apple-system;
+}
