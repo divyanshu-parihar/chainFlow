@@ -4,4 +4,9 @@ build:
 	go build -o ../build/engine main.go
 
 run: 
-	./engine
+	../build/engine
+
+dev:
+	go build -o ../build/engine main.go
+	INNGEST_DEV=true ../build/engine
+
