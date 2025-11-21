@@ -12,7 +12,7 @@ func HelloWorld(
 	ctx context.Context,
 	input inngestgo.Input[AccountCreatedEvent],
 ) (any, error) {
-	result, err := step.Run(ctx, "hell-world", func(ctx context.Context) (bool, error) {
+	result, err := step.Run(ctx, "hello-world", func(ctx context.Context) (bool, error) {
 		slog.InfoContext(ctx, "hello world")
 		return true, nil
 	})
