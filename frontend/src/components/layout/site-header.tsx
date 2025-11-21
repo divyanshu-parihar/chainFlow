@@ -73,7 +73,7 @@ export function SiteHeader() {
           <span className="text-slate-100">ChainFlow</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-slate-200 md:flex">
-          <Link href="#features" className="transition hover:text-white">
+          {/* <Link href="#features" className="transition hover:text-white">
             Features
           </Link>
           <Link href="#how-it-works" className="transition hover:text-white">
@@ -85,6 +85,7 @@ export function SiteHeader() {
           <Link href="#faq" className="transition hover:text-white">
             FAQ
           </Link>
+          */}
         </nav>
         <div className="flex items-center gap-3">
           {configured ? (
@@ -111,12 +112,12 @@ export function SiteHeader() {
             ) : (
               <Button
                 size="sm"
-                className="flex items-center gap-2"
+                className="cursor-pointer group flex items-center gap-2 bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 text-slate-950 shadow-[0_10px_30px_rgba(14,165,233,0.45)] ring-1 ring-cyan-400/60 hover:-translate-y-0.5 hover:shadow-[0_15px_45px_rgba(14,165,233,0.55)]"
                 onClick={handleSignIn}
                 disabled={pending}
               >
                 <span>Sign in with Google</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
             )
           ) : (

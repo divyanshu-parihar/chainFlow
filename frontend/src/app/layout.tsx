@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SupabaseProvider } from "@/supabase/provider";
+import { SupabaseProvider, useSupabase } from "@/supabase/provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Suspense } from "react";
@@ -40,6 +40,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { session } = useSupabase();
+  console.log("session", session);
   return (
     <html lang="en">
       <body

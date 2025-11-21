@@ -9,7 +9,7 @@ export async function signInWithGoogleAction() {
     throw new Error("Supabase environment variables are not configured.");
   }
 
-  const supabase = createServerClient();
+  const supabase = await createServerClient();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -38,7 +38,7 @@ export async function signOutAction() {
     return;
   }
 
-  const supabase = createServerClient();
+  const supabase = await createServerClient();
   await supabase.auth.signOut();
   redirect("/");
 }
