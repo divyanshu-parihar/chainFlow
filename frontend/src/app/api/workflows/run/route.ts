@@ -18,33 +18,34 @@ export async function POST(request: Request) {
   // const runUrl = `${ENGINE_URL}/api/event`;
 
   try {
-  //   const response = await fetch(runUrl, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       event: trigger,
-  //       data: payload,
-  //     }),
-  //   });
+    //   const response = await fetch(runUrl, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       event: trigger,
+    //       data: payload,
+    //     }),
+    //   });
 
-  //   console.log(response)
-  //   if (!response.ok) {
-  //     const errorText = await response.text();
-  //     return NextResponse.json(
-  //       { error: `Engine responded with ${response.status}: ${errorText}` },
-  //       { status: 500 },
-  //     );
-  //   }
-    
-    const run = await inngest.send({
-      name: Events.HELLO_WORLD,
-      data:{
-        name:'world'
-      }
-    })
-    return NextResponse.json({ run }  , { status: 200 });
+    //   console.log(response)
+    //   if (!response.ok) {
+    //     const errorText = await response.text();
+    //     return NextResponse.json(
+    //       { error: `Engine responded with ${response.status}: ${errorText}` },
+    //       { status: 500 },
+    //     );
+    //   }
+
+    const run = await inngest.send(
+      {
+        "name": "api/hello.world",
+        "data": {
+          "name": "world"
+        }
+      })
+    return NextResponse.json({ run }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to reach engine" },
