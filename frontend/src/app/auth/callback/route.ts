@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr"; // Changed from auth-helpers
+import { cookies } from "next/headers";
 import type { Database } from "@/supabase/types";
-
-export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -14,9 +13,32 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(destination);
   }
 
-  const supabase = createRouteHandlerClient<Database>({
-    cookies: () => request.cookies as unknown,
-  });
+  // 1. Await the cookie store (Next.js 15 requirement)
+  const cookieStore = await cookies();
+
+  // 2. Create the client using @supabase/ssr
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // This suppresses errors if called from a context 
+            // where cookies strictly can't be set, though in a 
+            // Route Handler this usually works fine.
+          }
+        },
+      },
+    }
+  );
 
   try {
     await supabase.auth.exchangeCodeForSession(code);

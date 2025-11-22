@@ -34,11 +34,12 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims()
 
   const user = data?.claims
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
+  const pathname = request.nextUrl.pathname
+  const isLoginRoute = pathname.startsWith('/login')
+  const isAuthRoute = pathname.startsWith('/auth')
+  const isPublicHome = pathname === '/'
+
+  if (!user && !isLoginRoute && !isAuthRoute && !isPublicHome) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
     url.pathname = '/'

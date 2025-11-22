@@ -40,8 +40,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { session } = useSupabase();
-  console.log("session", session);
   return (
     <html lang="en">
       <body

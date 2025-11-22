@@ -1,4 +1,3 @@
-'use client';
 import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -32,13 +31,13 @@ export default async function DashboardPage() {
     );
   }
 
-  const supabase = createSupabaseBrowserClient();
+  const supabase = await createServerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
 
-  console.log("session", session);  if (!isSupabaseConfigured) {
+  if (!isSupabaseConfigured) {
     return <div>Missing configuration</div>;
   }
   if (!session) {
