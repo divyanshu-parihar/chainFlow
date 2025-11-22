@@ -10,15 +10,17 @@ import (
 
 func HelloWorld(
 	ctx context.Context,
-	input inngestgo.Input[inngestgo.GenericEvent[map[string]interface{}]],
+	input inngestgo.Input[map[string]interface{}],
 ) (any, error) {
 	slog.InfoContext(ctx, "HelloWorld function started", "event", input.Event)
 
 	// Extract the name from the event data
 	name := "world"
-	if data, ok := input.Event.Data["name"]; ok {
-		if n, ok := data.(string); ok {
-			name = n
+	if input.Event.Data != nil {
+		if val, ok := input.Event.Data["name"]; ok {
+			if n, ok := val.(string); ok {
+				name = n
+			}
 		}
 	}
 
