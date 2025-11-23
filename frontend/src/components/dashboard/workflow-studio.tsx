@@ -207,7 +207,7 @@ export const WorkflowStudio = ({ workflows }: WorkflowStudioProps) => {
         return;
       }
 
-      toast.success("Workflow kicked off in the engine");
+      toast.success("Workflow kicked off in the engine " + activeWorkflow.inngest_trigger);
     } catch (error) {
       console.error(error);
       toast.error("Unexpected error while running workflow");

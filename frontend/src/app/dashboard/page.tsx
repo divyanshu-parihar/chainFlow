@@ -5,7 +5,6 @@ import { WorkflowStudio } from "@/components/dashboard/workflow-studio";
 import { buildHelloWorldSeed, withParsedGraph } from "@/lib/workflows";
 import { isSupabaseConfigured } from "@/supabase/env";
 import { createServerClient } from "@/supabase/server-client";
-import { createSupabaseBrowserClient } from "@/supabase/browser-client";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +58,7 @@ export default async function DashboardPage() {
   if (!hydrated.length) {
     const { data: seeded, error: seedError } = await supabase
       .from("workflows")
-      .insert(buildHelloWorldSeed(session.user.id))
+      .insert([buildHelloWorldSeed(session.user.id)])
       .select("*")
       .single();
 
